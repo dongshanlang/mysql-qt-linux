@@ -23,10 +23,14 @@ loginDlg::loginDlg(QWidget *parent) :
     label3->setText(tr("服务器IP"));
 
     lineEditUserName = new QLineEdit;
+    lineEditUserName->setText("dbuser1");
     lineEditDBName = new QLineEdit;
+    lineEditDBName->setText("db1");
     lineEditPassword = new QLineEdit;
+    lineEditPassword->setText("dbuser1");
     lineEditPassword->setEchoMode(QLineEdit::Password);//设置密码框
     lineEditHostIP = new QLineEdit;
+    lineEditHostIP->setText("192.168.1.107");
 
     loginBtn = new QPushButton;
     loginBtn->setText(tr("登陆"));

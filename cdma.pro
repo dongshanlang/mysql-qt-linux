@@ -21,9 +21,13 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     logindlg.cpp \
     scriptdlg.cpp \
-    mymysql.cpp
+    mymysql.cpp \
+    insert_mscdlg.cpp \
+    select_msgdlg.cpp
 
 HEADERS  += mainwindow.h \
     logindlg.h \
     scriptdlg.h \
-    mymysql.h
+    mymysql.h \
+    insert_mscdlg.h \
+    select_msgdlg.h

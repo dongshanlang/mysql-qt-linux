@@ -40,6 +40,8 @@ private:
     QAction *exitAction;
 //管理菜单下的行为
     QAction *scriptAction;
+    QAction *insertmscAction;
+    QAction *selectmscAction;
 //窗口下的行为
     QAction *cascadeAction;
     QAction *tileAction;
@@ -57,6 +59,8 @@ private slots:
     void on_tileSubWindow();
     void on_help();
     void on_about();
+    void on_insertmsc();
+    void on_selectmsg();
 };
 
 #endif // MAINWINDOW_H

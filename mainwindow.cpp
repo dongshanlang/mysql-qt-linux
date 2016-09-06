@@ -6,6 +6,8 @@
 #include <QStandardItemModel>
 #include <QTableView>
 #include "scriptdlg.h"
+#include "insert_mscdlg.h"
+#include "select_msgdlg.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -126,6 +128,9 @@ void MainWindow::createMenus()
     adminMenu->addAction(exitAction);
 
     dataMenu = menuBar()->addMenu(tr("数据"));
+    dataMenu->addAction(insertmscAction);
+    dataMenu->addAction(selectmscAction);
+    dataMenu->addSeparator();
     dataMenu->addAction(scriptAction);
 
     windowMenu = menuBar()->addMenu(tr("窗口"));
@@ -174,6 +179,15 @@ void MainWindow::createAction()
     aboutAction->setShortcut(tr("ctrl+t"));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(on_about()));
 
+    insertmscAction = new QAction(tr("添加msc"), this);
+    insertmscAction->setShortcut(tr("ctrl+l"));
+    insertmscAction->setEnabled(false);
+    connect(insertmscAction, SIGNAL(triggered()), this, SLOT(on_insertmsc()));
+
+    selectmscAction = new QAction(tr("查询"), this);
+    selectmscAction->setShortcut(tr("ctrl+o"));
+    selectmscAction->setEnabled(false);
+    connect(selectmscAction, SIGNAL(triggered()), this, SLOT(on_selectmsg()));
 
 
 }
@@ -198,8 +212,10 @@ void MainWindow::on_login()
 
      }else
      {
-         QMessageBox::information(this, "登陆chenggong","d");
+         QMessageBox::information(this, "登陆成功","您已登录成功");
          scriptAction->setEnabled(true);
+         insertmscAction->setEnabled(true);
+         selectmscAction->setEnabled(true);
      }
 
      /*
@@ -282,10 +298,10 @@ void MainWindow::script_msg(const char *SQL)
     }
     if (res = -1)
     {
-        QMessageBox::information(this, "执行失败", db.get_error());
+        QMessageBox::information(this, tr("执行失败"), db.get_error());
     }else
     {
-        QMessageBox::information(this, "提示", "执行成功");
+        QMessageBox::information(this, tr("提示"), tr("执行成功"));
     }
 
 
@@ -309,5 +325,29 @@ void MainWindow::on_help()
 
 void MainWindow::on_about()
 {
-     QMessageBox::information(this,"hello", "about", "YES", "NO");
+    QMessageBox::information(this,"hello", "about", "YES", "NO");
+}
+
+void MainWindow::on_insertmsc()
+{
+    insert_mscDlg dlg;
+    dlg.exec();
+
+    if(dlg.isok)//如果用户点击了执行按钮才执行下面的代码
+    {
+       script_msg(dlg.SQL.toStdString().data());
+    }
+
+}
+
+void MainWindow::on_selectmsg()
+{
+    Select_msgDlg dlg;
+    dlg.exec();
+
+    if(dlg.isok)//如果用户点击了执行按钮才执行下面的代码
+    {
+       script_msg(dlg.SQL.toStdString().data());
+    }
+
 }
